@@ -33,16 +33,7 @@ class BasePage:
 			self.find_element(by_locator).click()
 			logger.info(f"Clicking element:  {by_locator}")
 	
-	def click_element_js(self, by_locator, waitForClickable=False):
-		self.highlight(self.driver, self.find_element(by_locator))
-		if waitForClickable:
-			WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(by_locator))	
-		else:
-			self.find_element(by_locator).click()
-		self.driver.execute_script("arguments[0].click();", self.find_element(by_locator))
 
-		
-	
 
 	def enter_text(self, by_locator, text):         
 		self.find_element(by_locator).send_keys(text)

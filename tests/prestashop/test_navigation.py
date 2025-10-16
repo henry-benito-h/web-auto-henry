@@ -1,8 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
-from pages.prestashop.landing_page import LandingPage
-from pages.prestashop.header_page import HeaderPage
+from pages.prestashop.selenium.landing_page import LandingPage
+from pages.prestashop.selenium.header_page import HeaderPage
 from utils.logger import get_logger
 
 
