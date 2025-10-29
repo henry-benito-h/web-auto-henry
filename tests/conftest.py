@@ -1,6 +1,7 @@
 import logging
 import pytest
 from utils.logger import get_logger
+from utils.read_json_data import read_json_file
 
 logger = get_logger(__name__)
 
@@ -31,3 +32,8 @@ def pytest_addoption(parser):
 def pytest_configure(config):
     pytest.env = config.getoption("env")
     pytest.browser = config.getoption("browser")
+
+@pytest.fixture(params=["link"])
+def read_data(request):
+
+    return read_json_file(f"tests/data/{request.param}.json")

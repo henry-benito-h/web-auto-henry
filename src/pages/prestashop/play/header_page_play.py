@@ -7,35 +7,31 @@ logger = get_logger(__name__)
 
 class HeaderPagePlay(BasePagePlay):
 
-    # locators
-   
-
     def __init__(self, page: Page):
         self.page = page
-        self.clothes_menu_item : Locator = page.locator("li#category-3 a")
-        self.accesories_menu_item : Locator = page.locator("li#category-6 a")
-        self.art_menu_item : Locator = page.locator("li#category-9 a")
+        self.clothes_menu_item = "li#category-3 a"
+        self.accesories_menu_item = "li#category-6 a"
+        self.art_menu_item = "li#category-9 a"
         self.search_input = page.locator("input[name='s']")
         # Switch to frame
         self.frame = self.switch_to_frame("framelive")
 
-    def click_clothes(self):
-        self.frame.click("li#category-3 a")
+    def get_menu_locators(self):
+        return {
+            "clothes": self.clothes_menu_item,
+            "accessories": self.accesories_menu_item,
+            "art": self.art_menu_item,
+        }
     
-    def click_accesories(self):
-        self.frame.click("li#category-6 a")
-    
-    def click_art(self):
-        self.frame.click("li#category-9 a")
-
     def click_menu(self, menu_name: str) -> None:
-            menu_name = menu_name.lower()
-            if menu_name == "clothes":
-                self.click_clothes()
-            elif menu_name == "accessories":
-                self.click_accesories()
-            elif menu_name == "art":
-                self.click_art()
+            """Click on menu item based on menu name
+            Args:
+                menu_name (str): Name of the menu item to click (clothes, accessories, art)
+            Raises:
+                ValueError: If menu_name is not recognized
+            """
+            if menu_name.lower() in self.get_menu_locators():
+                self.frame.click(self.get_menu_locators()[menu_name.lower()])
+                logger.info(f"Clicking on '{menu_name}' menu item")
             else:
-                raise ValueError(f"Menu '{menu_name}' not recognized. Available menus: clothes, accessories, art.")
-
+                raise ValueError(f"Menu '{menu_name}' not recognized. Available menus: {list(self.get_menu_locators().keys())}")
