@@ -37,3 +37,11 @@ def pytest_configure(config):
 def read_data(request):
 
     return read_json_file(f"tests/data/{request.param}.json")
+
+@pytest.fixture
+def log_test_name(request):
+    logger.info("Test name: '%s' started", request.node.name)
+    def fin():
+        logger.info("Test name: '%s' finished", request.node.name)
+    
+    request.addfinalizer(fin)
