@@ -11,7 +11,7 @@ class TestElementsPagePlay:
 
 
     @pytest.mark.parametrize("read_data", ["menus"], indirect=True)
-    def test_navigate_to_menus(self, page: Page, read_data) -> None:
+    def test_navigate_to_menus(self, page: Page, read_data, log_test_name) -> None:
         """
         Test navigation to different menus and verify breadcrumbs
         Args:
